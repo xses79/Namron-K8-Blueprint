@@ -1,0 +1,184 @@
+blueprint:
+  name: Namron K8 Blueprint
+  description: This blueprint is for the Namron K8 Zigbee. Based on ROBB ROB_200-007-0 dimmer switch when used with zigbee2mqtt. It is for general use so all buttons can be connected to any action of your choice. Make sure to select the correct sensor for the remote.
+  domain: automation
+  input:
+    remote:
+      name: Remote
+      description: Dimmer remote to use
+      selector:
+        entity:
+          integration: mqtt
+          domain: sensor
+          multiple: false
+    on_button_1_short:
+      name: On button 1 - short
+      default: []
+      selector:
+        action: {}
+    off_button_1_short:
+      name: Off button 1 - short
+      default: []
+      selector:
+        action: {}
+    on_button_1_hold:
+      name: On button 1 - hold
+      default: []
+      selector:
+        action: {}
+    off_button_1_hold:
+      name: Off button 1 - hold
+      default: []
+      selector:
+        action: {}
+    button_1_release:
+      name: Button 1 - release
+      default: []
+      selector:
+        action: {}
+    on_button_2_short:
+      name: On button 2 - short
+      default: []
+      selector:
+        action: {}
+    off_button_2_short:
+      name: Off button 2 - short
+      default: []
+      selector:
+        action: {}
+    on_button_2_hold:
+      name: On button 2 - hold
+      default: []
+      selector:
+        action: {}
+    off_button_2_hold:
+      name: Off button 2 - hold
+      default: []
+      selector:
+        action: {}
+    button_2_release:
+      name: Button 2 - release
+      default: []
+      selector:
+        action: {}
+    on_button_3_short:
+      name: On button 3 - short
+      default: []
+      selector:
+        action: {}
+    off_button_3_short:
+      name: Off button 3 - short
+      default: []
+      selector:
+        action: {}
+    on_button_3_hold:
+      name: On button 3 - hold
+      default: []
+      selector:
+        action: {}
+    off_button_3_hold:
+      name: Off button 3 - hold
+      default: []
+      selector:
+        action: {}
+    button_3_release:
+      name: Button 3 - release
+      default: []
+      selector:
+        action: {}
+    on_button_4_short:
+      name: On button 4 - short
+      default: []
+      selector:
+        action: {}
+    off_button_4_short:
+      name: Off button 4 - short
+      default: []
+      selector:
+        action: {}
+    on_button_4_hold:
+      name: On button 4 - hold
+      default: []
+      selector:
+        action: {}
+    off_button_4_hold:
+      name: Off button 4 - hold
+      default: []
+      selector:
+        action: {}
+    button_4_release:
+      name: Button 4 - release
+      default: []
+      selector:
+        action: {}
+  source_url: https://github.com/xses79/Namron-K8-Blueprint/new/main/namronk8.yaml
+mode: restart
+max_exceeded: silent
+trigger:
+- platform: state
+  entity_id: !input remote
+  attribute: action
+action:
+- variables:
+    command: '{{ trigger.to_state.state }}'
+- choose:
+  - conditions:
+    - '{{ command == ''on_l1'' }}'
+    sequence: !input on_button_1_short
+  - conditions:
+    - '{{ command == ''off_l1'' }}'
+    sequence: !input off_button_1_short
+  - conditions:
+    - '{{ command == ''brightness_move_up_l1'' }}'
+    sequence: !input on_button_1_hold
+  - conditions:
+    - '{{ command == ''brightness_move_down_l1'' }}'
+    sequence: !input off_button_1_hold
+  - conditions:
+    - '{{ command == ''brightness_stop_l1'' }}'
+    sequence: !input button_1_release
+  - conditions:
+    - '{{ command == ''on_l2'' }}'
+    sequence: !input on_button_2_short
+  - conditions:
+    - '{{ command == ''off_l2'' }}'
+    sequence: !input off_button_2_short
+  - conditions:
+    - '{{ command == ''brightness_move_up_l2'' }}'
+    sequence: !input on_button_2_hold
+  - conditions:
+    - '{{ command == ''brightness_move_down_l2'' }}'
+    sequence: !input off_button_2_hold
+  - conditions:
+    - '{{ command == ''brightness_stop_l2'' }}'
+    sequence: !input button_2_release
+  - conditions:
+    - '{{ command == ''on_l3'' }}'
+    sequence: !input on_button_3_short
+  - conditions:
+    - '{{ command == ''off_l3'' }}'
+    sequence: !input off_button_3_short
+  - conditions:
+    - '{{ command == ''brightness_move_up_l3'' }}'
+    sequence: !input on_button_3_hold
+  - conditions:
+    - '{{ command == ''brightness_move_down_l3'' }}'
+    sequence: !input off_button_3_hold
+  - conditions:
+    - '{{ command == ''brightness_stop_l3'' }}'
+    sequence: !input button_3_release
+  - conditions:
+    - '{{ command == ''on_l4'' }}'
+    sequence: !input on_button_4_short
+  - conditions:
+    - '{{ command == ''off_l4'' }}'
+    sequence: !input off_button_4_short
+  - conditions:
+    - '{{ command == ''brightness_move_up_l4'' }}'
+    sequence: !input on_button_4_hold
+  - conditions:
+    - '{{ command == ''brightness_move_down_l4'' }}'
+    sequence: !input off_button_4_hold
+  - conditions:
+    - '{{ command == ''brightness_stop_l4'' }}'
+    sequence: !input button_4_release
