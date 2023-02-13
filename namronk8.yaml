@@ -111,7 +111,7 @@ blueprint:
       default: []
       selector:
         action: {}
-  source_url: https://github.com/xses79/Namron-K8-Blueprint/new/main/namronk8.yaml
+  source_url: https://github.com/xses79/Namron-K8-Blueprint/blob/main/namronk8.yaml
 mode: restart
 max_exceeded: silent
 trigger:
